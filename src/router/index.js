@@ -12,6 +12,26 @@ const routes = [
     name: "about",
     component: () => import("../views/AboutView.vue"),
   },
+  {
+    path: "/Login",
+    name: "Login",
+    component: () => import("../views/Login.vue"),
+  },
+  {
+    path: "/Register",
+    name: "Register",
+    component: () => import("../views/Register.vue"),
+  },
+  {
+    path: "/Blogs",
+    name: "Blogs",
+    component: () => import("../views/Blogs.vue"),
+  },
+  {
+    path: "/SingleBlog",
+    name: "SingleBlog",
+    component: () => import("../views/SingleBlog.vue"),
+  },
 ];
 
 const router = createRouter({
