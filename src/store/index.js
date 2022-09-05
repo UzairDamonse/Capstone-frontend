@@ -28,7 +28,7 @@ export default createStore({
       state.token = token;
     },
     logout(state) {
-      (state.user = ""), (state.token = "");
+      (state.user = ""), (state.token = ""), (state.users = "");
     },
   },
   actions: {
@@ -70,25 +70,16 @@ export default createStore({
 
     // REGISTER USER
 
-    register: async (context, payload) => {
-      const { user_name, email, password, phone_number, imgURL, bio } = payload;
+    register: async (context, user) => {
       fetch("https://uzair-capstone.herokuapp.com/users/register", {
         method: "POST",
-        body: JSON.stringify({
-          user_name: user_name,
-          email: email,
-          password: password,
-          phone_number: phone_number,
-          imgURL: imgURL,
-          bio: bio,
-        }),
+        body: JSON.stringify(user),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
       })
         .then((response) => response.json())
-        .then((json) => context.commit("setUser", json))
-        .catch((err) => console.log(err.message));
+        .then((json) => context.commit("setUsers", json));
     },
     getAllPosts: async (context) => {
       fetch("https://uzair-capstone.herokuapp.com/posts")
@@ -100,6 +91,12 @@ export default createStore({
       fetch("https://uzair-capstone.herokuapp.com/posts/" + id)
         .then((res) => res.json())
         .then((data) => context.commit("setSinglePost", data))
+        .catch((err) => console.log(err.message));
+    },
+    getSingleUser: async (context, id) => {
+      fetch("https://uzair-capstone.herokuapp.com/users/" + id)
+        .then((res) => res.json())
+        .then((data) => context.commit("setUser", data))
         .catch((err) => console.log(err.message));
     },
   },

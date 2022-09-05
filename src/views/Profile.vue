@@ -1,22 +1,20 @@
 <template>
-  <div id="item-wrapper" v-if="post">
+  <div id="item-wrapper" v-if="user">
     <div
       id="item-container"
-      v-for="post in post"
-      :key="post.post_id"
-      :post="post"
+      v-for="user in user"
+      :key="user.user_id"
+      :user="user"
     >
       <div id="info-div ">
-        <router-link class="text-white" to="/Blogs">Back to Blogs</router-link>
-        <p class="text-white artist-name">{{ post.user_id }}</p>
-        <p id="image-description" class="text-white">
-          " {{ post.post_content }} "
-        </p>
+        <router-link class="text-white" to="/">Back to Home</router-link>
+        <p class="text-white artist-name">{{ user.user_name }}</p>
+        <p id="image-description" class="text-white">" {{ user.bio }} "</p>
       </div>
       <div class="d-flex flex-column align-items-start artist-name">
-        <img id="artwork" :src="post.post_image" alt="" />
-        <p class="my-1 mt-3 text-white">{{ post.post_title }}</p>
-        <p class="my-1 text-white">{{ post.date_of_post }}</p>
+        <img id="artwork" :src="user.imgURL" alt="" />
+        <p class="my-1 mt-3 text-white">{{ user.email }}</p>
+        <p class="my-1 text-white">{{ user.phone_number }}</p>
       </div>
     </div>
   </div>
@@ -26,13 +24,13 @@
 export default {
   props: ["id"],
   computed: {
-    post() {
-      return this.$store.state.post;
+    user() {
+      return this.$store.state.user;
     },
   },
   mounted() {
     console.log(this.$route.params.id);
-    this.$store.dispatch("getSinglePost", this.$route.params.id);
+    this.$store.dispatch("getSingleUser", this.$route.params.id);
   },
 };
 </script>

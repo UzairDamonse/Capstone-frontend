@@ -28,9 +28,21 @@ const routes = [
     component: () => import("../views/Blogs.vue"),
   },
   {
-    path: "/SingleBlog",
+    path: "/Contact",
+    name: "Contact",
+    component: () => import("../views/Contact.vue"),
+  },
+  {
+    path: "/Blogs/:id",
     name: "SingleBlog",
     component: () => import("../views/SingleBlog.vue"),
+    props: true,
+  },
+  {
+    path: "/Users/:id",
+    name: "Profile",
+    component: () => import("../views/Profile.vue"),
+    props: true,
   },
 ];
 

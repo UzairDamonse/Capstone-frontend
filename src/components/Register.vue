@@ -2,8 +2,7 @@
   <div id="login_body" class="d-flex justify-content-center align-items-center">
     <div class="login-box">
       <h2 id="login_title">Register</h2>
-      <h3 v-if="user">Welcome {{ user.user.user_name }} proceed to Login</h3>
-      <form v-else @submit.prevent="register">
+      <form @submit.prevent="register">
         <div class="user-box my-3">
           <input
             v-model="user_name"
@@ -51,6 +50,10 @@
             >Image (in URL form)
             <span class="text-muted"> * Optional</span></label
           >
+          <span
+            ><a target="_blank" href="https://postimages.org/"
+              ><i class="fa-regular fa-circle-question"></i></a
+          ></span>
         </div>
         <div class="user-box my-3">
           <input v-model="bio" class="input" type="text" name="bio" />
@@ -67,6 +70,9 @@ export default {
   computed: {
     user() {
       return this.$store.state.user;
+    },
+    users() {
+      return this.$store.state.users;
     },
   },
   data() {
@@ -92,6 +98,7 @@ export default {
         imgURL: this.imgURL,
         bio: this.bio,
       });
+      alert("Thank you for registering please login to continue");
     },
   },
 };

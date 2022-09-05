@@ -8,7 +8,7 @@
           <input
             v-model="email"
             class="input"
-            type="text"
+            type="email"
             name="email"
             required
           />
@@ -50,7 +50,6 @@ export default {
         password: this.password,
       });
       this.$router.push("/");
-      console.log(user.user_name);
     },
   },
   mounted() {
