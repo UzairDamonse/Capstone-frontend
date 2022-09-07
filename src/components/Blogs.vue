@@ -1,6 +1,6 @@
 <template>
   <section id="market">
-    <div class="container" id="box-container" v-if="posts">
+    <div id="box-container" v-if="posts">
       <div class="box row">
         <div class="col-md-4 item">
           <img class="art-image" :src="post.post_image" alt="" />
@@ -15,11 +15,18 @@
         </div>
       </div>
     </div>
+    <div v-else>
+      <Loader />
+    </div>
   </section>
 </template>
 
 <script>
+import Loader from "@/components/Loader.vue";
 export default {
+  components: {
+    Loader,
+  },
   props: ["post"],
   computed: {
     posts() {
@@ -32,18 +39,18 @@ export default {
 
 <style>
 #market {
-  background: rgb(35, 37, 38);
   min-height: 100vh;
-}
-
-#box-container {
-  margin-top: 1rem;
+  background: rgb(27, 27, 27);
+  padding-top: 8rem;
+  overflow-x: hidden;
+  padding-bottom: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .box {
   background: transparent;
   border-radius: 4px 4px;
-  padding-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;

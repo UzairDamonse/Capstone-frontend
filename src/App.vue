@@ -48,4 +48,21 @@ nav a {
 nav a.router-link-exact-active {
   color: #9967cc;
 }
+
+[type="submit"] {
+  width: 7rem;
+  font-size: 1.2rem;
+  background: #ffffff;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  transition: all 0.3s;
+  margin-top: -4px;
+  font-weight: 500;
+}
+[type="submit"]:hover {
+  background: #9967cc;
+  color: white;
+}
 </style>

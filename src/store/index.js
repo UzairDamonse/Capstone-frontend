@@ -28,7 +28,14 @@ export default createStore({
       state.token = token;
     },
     logout(state) {
-      (state.user = ""), (state.token = ""), (state.users = "");
+      (state.user = ""),
+        (state.token = ""),
+        (state.users = ""),
+        (state.post = ""),
+        (state.posts = "");
+    },
+    noUsers(state) {
+      state.users = "";
     },
   },
   actions: {
@@ -81,23 +88,72 @@ export default createStore({
         .then((response) => response.json())
         .then((json) => context.commit("setUsers", json));
     },
+
     getAllPosts: async (context) => {
       fetch("https://uzair-capstone.herokuapp.com/posts")
         .then((res) => res.json())
         .then((data) => context.commit("setPosts", data))
         .catch((err) => console.log(err.message));
     },
+
     getSinglePost: async (context, id) => {
       fetch("https://uzair-capstone.herokuapp.com/posts/" + id)
         .then((res) => res.json())
         .then((data) => context.commit("setSinglePost", data))
         .catch((err) => console.log(err.message));
     },
+
     getSingleUser: async (context, id) => {
       fetch("https://uzair-capstone.herokuapp.com/users/" + id)
         .then((res) => res.json())
-        .then((data) => context.commit("setUser", data))
+        .then((data) => context.commit("setUsers", data))
         .catch((err) => console.log(err.message));
+    },
+
+    createPost: async (context, payload) => {
+      const { post_title, post_content, post_image, date_of_post, user_id } =
+        payload;
+      fetch("https://uzair-capstone.herokuapp.com/posts", {
+        method: "POST",
+        body: JSON.stringify({
+          post_title: post_title,
+          post_content: post_content,
+          post_image: post_image,
+          date_of_post: date_of_post,
+          user_id: user_id,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then(() => context.dispatch("getAllPosts"));
+    },
+
+    updatePost: async (context, piece, id) => {
+      const { post_title, post_content, post_image, date_of_post, user_id } =
+        piece;
+      fetch("https://uzair-capstone.herokuapp.com/posts" + id, {
+        method: "PUT",
+        body: JSON.stringify({
+          post_title: post_title,
+          post_content: post_content,
+          post_image: post_image,
+          date_of_post: date_of_post,
+          user_id: user_id,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then(() => context.dispatch("getAllPosts"));
+    },
+
+    deletePost: async (context, id) => {
+      fetch("https://uzair-capstone.herokuapp.com/posts" + id, {
+        method: "DELETE",
+      }).then(() => context.dispatch("getAllPosts"));
     },
   },
   modules: {},

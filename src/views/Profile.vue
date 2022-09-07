@@ -1,21 +1,121 @@
 <template>
   <div id="item-wrapper" v-if="user">
-    <div
-      id="item-container"
-      v-for="user in user"
-      :key="user.user_id"
-      :user="user"
-    >
+    <div id="item-container" class="p-2">
+      <div class="artist-name row">
+        <div class="col-md-4">
+          <img id="artwork" :src="user.user.imgURL" alt="" />
+        </div>
+        <div class="col-md-8 words">
+          <p class="text-white artist-name">{{ user.user.user_name }}</p>
+          <p id="image-description" class="text-white">
+            " {{ user.user.bio }} "
+          </p>
+        </div>
+      </div>
       <div id="info-div ">
         <router-link class="text-white" to="/">Back to Home</router-link>
-        <p class="text-white artist-name">{{ user.user_name }}</p>
-        <p id="image-description" class="text-white">" {{ user.bio }} "</p>
+        <p class="my-1 mt-3 text-white">{{ user.user.email }}</p>
+        <p class="my-1 text-white">{{ user.user.phone_number }}</p>
       </div>
-      <div class="d-flex flex-column align-items-start artist-name">
-        <img id="artwork" :src="user.imgURL" alt="" />
-        <p class="my-1 mt-3 text-white">{{ user.email }}</p>
-        <p class="my-1 text-white">{{ user.phone_number }}</p>
-      </div>
+      <section id="Specials">
+        <div class="container">
+          <div class="section-title">
+            <h2 class="text-uppercase">specials</h2>
+            <p>Here are some of the specials</p>
+          </div>
+        </div>
+        <div class="d-flex align-items-start">
+          <div
+            class="nav flex-column nav-pills me-3"
+            id="v-pills-tab"
+            role="tablist"
+            aria-orientation="vertical"
+          >
+            <button
+              class="nav-link active"
+              id="v-pills-home-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-home"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-home"
+              aria-selected="true"
+            >
+              Home
+            </button>
+            <button
+              class="nav-link"
+              id="v-pills-profile-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-profile"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-profile"
+              aria-selected="false"
+            >
+              Profile
+            </button>
+            <button
+              class="nav-link"
+              id="v-pills-messages-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-messages"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-messages"
+              aria-selected="false"
+            >
+              Messages
+            </button>
+            <button
+              class="nav-link"
+              id="v-pills-settings-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#v-pills-settings"
+              type="button"
+              role="tab"
+              aria-controls="v-pills-settings"
+              aria-selected="false"
+            >
+              Settings
+            </button>
+          </div>
+          <div class="tab-content" id="v-pills-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="v-pills-home"
+              role="tabpanel"
+              aria-labelledby="v-pills-home-tab"
+            >
+              Home
+            </div>
+            <div
+              class="tab-pane fade"
+              id="v-pills-profile"
+              role="tabpanel"
+              aria-labelledby="v-pills-profile-tab"
+            >
+              Profile
+            </div>
+            <div
+              class="tab-pane fade"
+              id="v-pills-messages"
+              role="tabpanel"
+              aria-labelledby="v-pills-messages-tab"
+            >
+              Messages
+            </div>
+            <div
+              class="tab-pane fade"
+              id="v-pills-settings"
+              role="tabpanel"
+              aria-labelledby="v-pills-settings-tab"
+            >
+              Settings
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </template>
@@ -36,55 +136,46 @@ export default {
 </script>
 
 <style>
-.title {
-  padding-top: 20rem;
-}
-#item-view {
-  background: rgb(35, 37, 38);
-  width: 100%;
-  height: 100vh;
+.words {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
 }
 #item-wrapper {
-  padding-top: 50px;
   min-height: 100vh;
-  /* height: 500px;
-  width: 100%;
-  background: rgb(35, 37, 38);  */
+  background: rgb(27, 27, 27);
+  padding-top: 8rem;
+  overflow-x: hidden;
+  padding-bottom: 3rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
 }
 #item-container {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
   height: auto;
   width: 100%;
   min-height: 100vh;
-  background: rgb(39, 41, 42);
+  border: 1px solid #9967cc;
+  border-radius: 10px;
 }
 
-#artwork {
-  width: 500px;
-  height: auto;
-  padding-left: 13px;
-  border: 1px solid rgba(255, 255, 255, 0.068);
-}
-
-#image-description {
-  font-size: 45px;
-  margin-top: 52px;
-  min-height: 510px;
-  line-height: 155%;
-}
-
-#info-div {
-  height: 650px;
-  width: 500px;
-  padding-right: 13px;
-}
-
-#collection-link {
-  text-decoration: none;
+.nav-link {
   color: white;
-  border-bottom: 1px solid white;
+}
+.nav-link:hover {
+  color: #9967cc;
+}
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: white;
+  background-color: #9967cc;
+}
+#artwork {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
 }
 </style>

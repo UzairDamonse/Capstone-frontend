@@ -1,8 +1,9 @@
 <template>
   <div id="login_body" class="d-flex justify-content-center align-items-center">
     <div class="login-box">
-      <h2 id="login_title">Register</h2>
-      <form @submit.prevent="register">
+      <h1 id="login_title">Register</h1>
+      <h2 v-if="users">Thank you for registering please login to continue</h2>
+      <form v-else @submit.prevent="register">
         <div class="user-box my-3">
           <input
             v-model="user_name"
@@ -52,7 +53,11 @@
           >
           <span
             ><a target="_blank" href="https://postimages.org/"
-              ><i class="fa-regular fa-circle-question"></i></a
+              ><i
+                id="question"
+                title="Click to get image in URL form"
+                class="fa-regular fa-circle-question"
+              ></i></a
           ></span>
         </div>
         <div class="user-box my-3">
@@ -98,18 +103,19 @@ export default {
         imgURL: this.imgURL,
         bio: this.bio,
       });
-      alert("Thank you for registering please login to continue");
     },
   },
 };
 </script>
 
 <style scoped>
-#login_body {
-  background-color: black;
-  min-height: 100vh;
-  padding-top: 6rem;
-  padding-bottom: 3rem;
+#question {
+  font-size: 1.3rem;
+  color: #9967cc;
+}
+
+#question:hover {
+  color: #7f53ab;
 }
 
 #login_title {

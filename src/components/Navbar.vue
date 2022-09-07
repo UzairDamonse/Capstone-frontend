@@ -20,24 +20,17 @@
       </button>
       <div class="collapse navbar-collapse" id="Toggler">
         <ul class="navbar-nav mb-2 mb-lg-0 links">
-          <div class="d-flex flex-row" v-if="user">
-            <li class="nav-item">
-              <router-link class="nav-link" aria-current="page" to="/"
-                >Home</router-link
-              >
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/Blogs">Blogs</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/Contact">Contact</router-link>
-            </li>
-            <li class="nav-item">
-              <button @click="logout()" id="logout" class="nav-link">
-                Logout
-              </button>
-            </li>
-          </div>
+          <li class="nav-item" v-if="user">
+            <router-link class="nav-link" aria-current="page" to="/"
+              >Home</router-link
+            >
+          </li>
+          <li class="nav-item" v-if="user">
+            <router-link class="nav-link" to="/Blogs">Blogs</router-link>
+          </li>
+          <li class="nav-item" v-if="user">
+            <router-link class="nav-link" to="/Contact">Contact</router-link>
+          </li>
           <div class="d-flex flex-row" v-else>
             <li class="nav-item">
               <router-link class="nav-link" to="/Login">Login</router-link>
@@ -51,12 +44,20 @@
         </ul>
         <div class="nav-item" id="profile" v-if="user">
           <img :src="user.user.imgURL" alt="User pfp" id="pfp" />
-          <!-- <router-link
-            id="art-link"
-            class="nav-link"
-            :to="{ name: 'Profile', params: { id: user.user.user_id } }"
-            >Profile</router-link
-          > -->
+          <ul class="dropdown">
+            <li>
+              <router-link
+                class="nav-link"
+                :to="{ name: 'Profile', params: { id: user.user.user_id } }"
+                >Profile</router-link
+              >
+            </li>
+            <li v-if="user">
+              <button @click="logout()" id="logout" class="nav-link">
+                Logout
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -77,7 +78,7 @@ export default {
     },
     logout() {
       this.$store.commit("logout");
-      this.$router.push("/");
+      this.$router.push("/login");
     },
   },
   mounted() {},
@@ -116,8 +117,8 @@ export default {
 }
 
 #logout {
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid black;
+  border: 0;
+  background-color: rgb(39, 39, 39);
 }
 
 .links {
@@ -151,5 +152,43 @@ export default {
   width: 5rem;
   border-radius: 50%;
   margin-right: 1rem;
+}
+
+#profile ul.dropdown::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: 100%;
+  left: 1.5em;
+  border: 0.75rem solid transparent;
+  border-top: none;
+  border-bottom-color: rgb(39, 39, 39);
+  filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
+}
+
+#profile ul.dropdown {
+  background: rgb(39, 39, 39);
+  display: none;
+  position: absolute;
+  z-index: 999;
+  top: 80px;
+  right: 55px;
+  width: 6rem;
+  padding: 1.125em 1.5em;
+  font-size: 1.25em;
+  border-radius: 10px;
+  color: black;
+}
+#profile:hover ul.dropdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+#profile ul.dropdown li {
+  display: block;
 }
 </style>

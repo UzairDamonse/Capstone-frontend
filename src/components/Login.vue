@@ -24,7 +24,7 @@
           />
           <label>Password</label>
         </div>
-        <button type="submit">Login</button>
+        <button @click="noUsers()" type="submit">Login</button>
       </form>
     </div>
   </div>
@@ -51,6 +51,9 @@ export default {
       });
       this.$router.push("/");
     },
+    noUsers() {
+      this.$store.commit("noUsers");
+    },
   },
   mounted() {
     console.log(this.user);
@@ -60,7 +63,6 @@ export default {
 
 <style scoped>
 #login_body {
-  background-color: black;
   min-height: 100vh;
 }
 

@@ -20,10 +20,17 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <Loader />
+  </div>
 </template>
 
 <script>
+import Loader from "@/components/Loader.vue";
 export default {
+  components: {
+    Loader,
+  },
   props: ["id"],
   computed: {
     post() {
@@ -47,11 +54,13 @@ export default {
   height: 100vh;
 }
 #item-wrapper {
-  padding-top: 50px;
   min-height: 100vh;
-  /* height: 500px;
-  width: 100%;
-  background: rgb(35, 37, 38);  */
+  background: rgb(27, 27, 27);
+  padding-top: 8rem;
+  overflow-x: hidden;
+  padding-bottom: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 #item-container {
   display: flex;

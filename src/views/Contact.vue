@@ -2,7 +2,7 @@
   <section id="contact">
     <h1 class="heading2">Contact Us</h1>
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <form action="https://formspree.io/f/xvolwzda" method="POST">
           <div class="user-box my-3">
             <input class="input" type="email" name="email" required />
@@ -20,7 +20,7 @@
           <button type="submit">Send</button>
         </form>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3308.2674197088063!2d18.490509915594316!3d-33.98566428062414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc433bedd50e81%3A0x9c746d268c8e0ad9!2sLife%20Choices!5e0!3m2!1sen!2sza!4v1657287963522!5m2!1sen!2sza"
           width="550"
@@ -58,9 +58,11 @@ export default {};
 #contact {
   min-height: 100vh;
   background: rgb(27, 27, 27);
-  padding-top: 6rem;
+  padding-top: 8rem;
   overflow-x: hidden;
-  padding-bottom: 3rem rem;
+  padding-bottom: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .form-control {
   width: 100%;
@@ -87,11 +89,6 @@ form {
 
 .col-4 {
   flex: 50%;
-}
-@media screen and (max-width: 536px) {
-  .col-6 {
-    width: 100%;
-  }
 }
 @media screen and (max-width: 1060px) {
   .row {
@@ -137,23 +134,6 @@ textarea {
   height: 150px;
   line-height: 150%;
   resize: vertical;
-}
-
-[type="submit"] {
-  width: 30%;
-  font-size: 1.3rem;
-  background: #ffffff;
-  border-radius: 5px;
-  border: 0;
-  cursor: pointer;
-  color: rgb(0, 0, 0);
-  transition: all 0.3s;
-  margin-top: -4px;
-  font-weight: 500;
-}
-[type="submit"]:hover {
-  background: #9967cc;
-  color: white;
 }
 
 /* Location, Phone, Email Section */

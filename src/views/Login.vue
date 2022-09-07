@@ -19,3 +19,13 @@ export default {
   },
 };
 </script>
+<style>
+.home {
+  min-height: 100vh;
+  background: rgb(27, 27, 27);
+  overflow-x: hidden;
+  padding-bottom: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+</style>

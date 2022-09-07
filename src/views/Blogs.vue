@@ -10,9 +10,9 @@ export default {
   components: {
     Blogs,
   },
-  //   mounted() {
-  //     this.$store.dispatch("getAllPosts");
-  //   },
+  mounted() {
+    this.$store.dispatch("getAllPosts");
+  },
   computed: {
     user() {
       return this.$store.state.user;
