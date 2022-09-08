@@ -1,8 +1,8 @@
 <template>
   <section id="contact">
-    <h1 class="heading2">Contact Us</h1>
     <div class="row">
       <div class="col-md-6">
+        <h1 class="heading2">Contact Us</h1>
         <form action="https://formspree.io/f/xvolwzda" method="POST">
           <div class="user-box my-3">
             <input class="input" type="email" name="email" required />
@@ -67,11 +67,7 @@ export default {};
 .form-control {
   width: 100%;
 }
-@media screen and (max-width: 838px) {
-  .form-control {
-    width: 100%;
-  }
-}
+
 .heading {
   color: white;
   font-weight: 500px;
@@ -80,7 +76,7 @@ export default {};
 form {
   max-width: 420px;
   margin: 50px auto;
-  padding-top: 2rem;
+  padding-top: 0.6rem;
   padding-bottom: 2rem;
 }
 .row {
@@ -256,7 +252,6 @@ iframe {
 }
 @media screen and (max-width: 838px) {
   form {
-    width: 100%;
     padding-left: 50px;
   }
 }

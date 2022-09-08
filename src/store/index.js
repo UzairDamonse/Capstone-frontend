@@ -5,6 +5,7 @@ export default createStore({
   state: {
     user: null,
     users: null,
+    usersPost: null,
     token: null,
     post: null,
     posts: null,
@@ -17,6 +18,9 @@ export default createStore({
     },
     setUsers: (state, users) => {
       state.users = users;
+    },
+    setUsersPost: (state, usersPost) => {
+      state.usersPost = usersPost;
     },
     setPosts: (state, posts) => {
       state.posts = posts;
@@ -107,6 +111,13 @@ export default createStore({
       fetch("https://uzair-capstone.herokuapp.com/users/" + id)
         .then((res) => res.json())
         .then((data) => context.commit("setUsers", data))
+        .catch((err) => console.log(err.message));
+    },
+
+    getUsersPost: async (context, id) => {
+      fetch("https://uzair-capstone.herokuapp.com/posts/" + id + "/post")
+        .then((res) => res.json())
+        .then((data) => context.commit("setUsersPost", data))
         .catch((err) => console.log(err.message));
     },
 

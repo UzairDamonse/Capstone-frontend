@@ -1,27 +1,30 @@
 <template>
   <div id="item-wrapper" v-if="user">
     <div id="item-container" class="p-2">
-      <div class="artist-name row">
-        <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-3" id="img">
           <img id="artwork" :src="user.user.imgURL" alt="" />
         </div>
-        <div class="col-md-8 words">
+        <div class="col-md-9 words">
           <p class="text-white artist-name">{{ user.user.user_name }}</p>
-          <p id="image-description" class="text-white">
-            " {{ user.user.bio }} "
-          </p>
         </div>
       </div>
       <div id="info-div ">
         <router-link class="text-white" to="/">Back to Home</router-link>
-        <p class="my-1 mt-3 text-white">{{ user.user.email }}</p>
-        <p class="my-1 text-white">{{ user.user.phone_number }}</p>
+        <div v-if="user.user.type === 'admin'">
+          <router-link to="/Admin" class="my-1 text-white">
+            To Admin</router-link
+          >
+        </div>
       </div>
       <section id="Specials">
         <div class="container">
           <div class="section-title">
-            <h2 class="text-uppercase">specials</h2>
-            <p>Here are some of the specials</p>
+            <h2 class="text-uppercase">congratulations</h2>
+            <p>
+              You have found an easter egg this is just one of many
+              <span><i class="fa-solid fa-thumbs-up"></i></span>
+            </p>
           </div>
         </div>
         <div class="d-flex align-items-start">
@@ -41,7 +44,7 @@
               aria-controls="v-pills-home"
               aria-selected="true"
             >
-              Home
+              Bio
             </button>
             <button
               class="nav-link"
@@ -87,7 +90,10 @@
               role="tabpanel"
               aria-labelledby="v-pills-home-tab"
             >
-              Home
+              <p id="image-description">
+                {{ user.user.bio }}
+              </p>
+              <i class="fa-solid fa-pen"></i>
             </div>
             <div
               class="tab-pane fade"
@@ -95,7 +101,7 @@
               role="tabpanel"
               aria-labelledby="v-pills-profile-tab"
             >
-              Profile
+              <p id="image-description">{{ usersPost[0].user_name }}</p>
             </div>
             <div
               class="tab-pane fade"
@@ -103,7 +109,9 @@
               role="tabpanel"
               aria-labelledby="v-pills-messages-tab"
             >
-              Messages
+              <p id="image-description">
+                {{ user.user.bio }}
+              </p>
             </div>
             <div
               class="tab-pane fade"
@@ -111,7 +119,9 @@
               role="tabpanel"
               aria-labelledby="v-pills-settings-tab"
             >
-              Settings
+              <p id="image-description">
+                {{ user.user.bio }}
+              </p>
             </div>
           </div>
         </div>
@@ -127,15 +137,19 @@ export default {
     user() {
       return this.$store.state.user;
     },
+    usersPost() {
+      return this.$store.state.usersPost;
+    },
   },
   mounted() {
     console.log(this.$route.params.id);
     this.$store.dispatch("getSingleUser", this.$route.params.id);
+    this.$store.dispatch("getUsersPost", this.$route.params.id);
   },
 };
 </script>
 
-<style>
+<style scoped>
 .words {
   display: flex;
   flex-direction: column;
@@ -177,5 +191,26 @@ export default {
   border-radius: 50%;
   width: 200px;
   height: 200px;
+}
+
+.section-title {
+  color: rgb(27, 27, 27);
+}
+
+#img {
+  margin-top: 1rem;
+}
+
+.artist-name {
+  font-size: 3rem;
+}
+
+.tab-content {
+  min-width: 20rem;
+}
+
+.tab-pane {
+  margin-top: 10px;
+  color: white;
 }
 </style>

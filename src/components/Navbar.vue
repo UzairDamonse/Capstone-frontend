@@ -1,12 +1,29 @@
 <template>
   <nav id="nav" class="navbar navbar-dark navbar-expand-lg bg-black">
     <div class="container-fluid" id="nav-stuff">
-      <a class="navbar-brand" id="logo"
+      <a v-if="!user" class="navbar-brand" id="logo"
         ><img
           id="nav_img"
           src="https://i.postimg.cc/bNqHj1B4/Screenshot-2022-08-22-114930.webp"
         />
       </a>
+      <div class="nav-item" id="profile" v-if="user">
+        <img :src="user.user.imgURL" alt="User pfp" id="pfp" />
+        <ul class="dropdown">
+          <li>
+            <router-link
+              class="nav-link"
+              :to="{ name: 'Profile', params: { id: user.user.user_id } }"
+              >Profile</router-link
+            >
+          </li>
+          <li v-if="user">
+            <button @click="logout()" id="logout" class="nav-link">
+              Logout
+            </button>
+          </li>
+        </ul>
+      </div>
       <button
         class="navbar-toggler justify-content-end"
         type="button"
@@ -31,34 +48,13 @@
           <li class="nav-item" v-if="user">
             <router-link class="nav-link" to="/Contact">Contact</router-link>
           </li>
-          <div class="d-flex flex-row" v-else>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/Login">Login</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/Register"
-                >Register</router-link
-              >
-            </li>
-          </div>
+          <li class="nav-item" v-if="!user">
+            <router-link class="nav-link" to="/Login">Login</router-link>
+          </li>
+          <li class="nav-item" v-if="!user">
+            <router-link class="nav-link" to="/Register">Register</router-link>
+          </li>
         </ul>
-        <div class="nav-item" id="profile" v-if="user">
-          <img :src="user.user.imgURL" alt="User pfp" id="pfp" />
-          <ul class="dropdown">
-            <li>
-              <router-link
-                class="nav-link"
-                :to="{ name: 'Profile', params: { id: user.user.user_id } }"
-                >Profile</router-link
-              >
-            </li>
-            <li v-if="user">
-              <button @click="logout()" id="logout" class="nav-link">
-                Logout
-              </button>
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
   </nav>
@@ -89,9 +85,10 @@ export default {
 /*Navbar*/
 #nav-stuff {
   height: 6rem;
+  padding-top: 0.5rem;
 }
 .navbar {
-  height: 6rem;
+  height: 7rem;
   position: fixed;
   width: 100%;
   z-index: 1000;
@@ -125,7 +122,7 @@ export default {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 #profile {
@@ -145,6 +142,10 @@ export default {
 .nav-link {
   font-size: 1.3rem;
   color: rgb(198, 198, 198);
+}
+.nav-link:hover {
+  font-size: 1.3rem;
+  color: #9967cc;
 }
 
 #pfp {
@@ -172,11 +173,11 @@ export default {
   display: none;
   position: absolute;
   z-index: 999;
-  top: 80px;
-  right: 55px;
+  top: 90px;
+  left: 2px;
   width: 6rem;
   padding: 1.125em 1.5em;
-  font-size: 1.25em;
+  font-size: 1.5rem;
   border-radius: 10px;
   color: black;
 }
