@@ -61,7 +61,7 @@
               >
                 Cancel
               </button>
-              <button type="btn" class="btn btn-outline-dark" @click="addPost">
+              <button type="submit" class="btn btn-outline-dark">
                 Create post
               </button>
             </form>
@@ -93,14 +93,98 @@
           <td>{{ post.date_of_post }}</td>
           <td>{{ post.user_id }}</td>
           <td>
-            <button type="btn">
-              <i
-                title="Edit"
-                class="bi bi-pencil-square"
-                id="edit"
-                @click="toggleModal"
-              ></i>
-            </button>
+            <div id="buttons">
+              <div
+                class="modal fade"
+                id="exampleModalToggle2"
+                aria-hidden="true"
+                aria-labelledby="exampleModalToggleLabel2"
+                tabindex="-1"
+              >
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5
+                        class="modal-title text-light"
+                        id="exampleModalToggleLabel2"
+                      >
+                        <i class="fa-solid fa-pencil"></i> EDIT
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th scope="col"><u>SAVE CHANGES</u></th>
+                            <th scope="col"><u>Post Title</u></th>
+                            <th scope="col"><u>Post Content</u></th>
+                            <th scope="col"><u>Image URL</u></th>
+                          </tr>
+                        </thead>
+                        <tbody
+                          v-for="post in posts"
+                          :key="post.post_id"
+                          :post="post"
+                        >
+                          <tr>
+                            <td data-label="Edit">
+                              <button class="btn">
+                                <a
+                                  @click="
+                                    this.$store.dispatch('editPost', post)
+                                  "
+                                  ><i class="fa-solid fa-pencil"></i
+                                ></a>
+                              </button>
+                            </td>
+                            <td data-label="Post Title">
+                              <input
+                                v-model="post.post_title"
+                                type="text"
+                                class="form-control"
+                                required
+                              />
+                            </td>
+                            <td data-label="Post Content">
+                              <input
+                                v-model="post.post_content"
+                                type="text"
+                                class="form-control"
+                                required
+                              />
+                            </td>
+                            <td data-label="Image URL">
+                              <input
+                                v-model="post.post_image"
+                                type="text"
+                                class="form-control"
+                                required
+                              />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="modal-footer"></div>
+                  </div>
+                </div>
+              </div>
+              <button
+                id="btn"
+                class="btn"
+                data-bs-target="#exampleModalToggle2"
+                data-bs-toggle="modal"
+              >
+                <h1><i class="fa-solid fa-pencil"></i> EDIT</h1>
+                <p>make changes to a post</p>
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -132,14 +216,6 @@
           <td>{{ user.email }}</td>
           <td>{{ user.password }}</td>
           <td>
-            <button type="btn">
-              <i
-                title="Edit"
-                class="bi bi-pencil-square"
-                id="edit"
-                @click="toggleModal"
-              ></i>
-            </button>
             <button type="btn" @click="deleteuser">
               <i class="fa-solid fa-trash-can"></i>
             </button>
@@ -151,7 +227,9 @@
   <!-- <button @click="console">click</button> -->
 </template>
 <script>
+import UpdateModal from "../components/UpdateModal.vue";
 export default {
+  components: { UpdateModal },
   computed: {
     posts() {
       return this.$store.state.posts;
@@ -159,17 +237,15 @@ export default {
     users() {
       return this.$store.state.users;
     },
-    post() {
-      return this.$store.state.post;
-    },
+    // post() {
+    //   return this.$store.state.post;
+    // },
     user() {
       return this.$store.state.user;
     },
   },
 
   data() {
-    // const user_id = this.user.user.user_id;
-
     return {
       user_id: "",
       post_title: "",
@@ -192,8 +268,8 @@ export default {
       });
     },
 
-    editpost(id) {
-      return this.$store.dispatch("editpost", id);
+    editPost(id) {
+      return this.$store.dispatch("editPost", id);
     },
     deletepost(id) {
       return this.$store.dispatch("deletepost", id);
@@ -201,7 +277,6 @@ export default {
   },
   mounted() {
     return this.$store.dispatch("getAllUsers");
-    // return this.$store.dispatch("getUser");
   },
 };
 </script>

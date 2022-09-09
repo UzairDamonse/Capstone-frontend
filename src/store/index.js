@@ -137,27 +137,26 @@ export default createStore({
         },
       })
         .then((response) => response.json())
-        .then((json) => context.dispatch("getPosts", json));
+        .then((json) => context.dispatch("getAllPosts", json));
     },
 
-    updatePost: async (context, piece, id) => {
-      const { post_title, post_content, post_image, date_of_post, user_id } =
-        piece;
-      fetch("https://uzair-capstone.herokuapp.com/posts/" + id, {
-        method: "PUT",
-        body: JSON.stringify({
-          post_title: post_title,
-          post_content: post_content,
-          post_image: post_image,
-          date_of_post: date_of_post,
-          user_id: user_id,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      })
-        .then((response) => response.json())
-        .then(() => context.dispatch("getAllPosts"));
+    editPost: async (context, post) => {
+      console.log(post);
+      await fetch(
+        "https://uzair-capstone.herokuapp.com/posts/" + post.post_id,
+        {
+          method: "PATCH",
+          body: JSON.stringify(post),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          context.state.msg = data.msg;
+          context.dispatch("getAllPosts", post.post_id);
+        });
     },
 
     deletePost: async (context, id) => {

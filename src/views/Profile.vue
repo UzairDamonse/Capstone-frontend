@@ -129,8 +129,10 @@
 </template>
 
 <script>
+import UpdateModal from "../components/UpdateModal.vue";
 export default {
   props: ["id"],
+  components: { UpdateModal },
   computed: {
     user() {
       return this.$store.state.user;
@@ -148,6 +150,7 @@ export default {
   methods: {
     deleteUser() {
       this.$store.dispatch("deleteUser", this.$route.params.id);
+      this.$store.commit("logout");
       this.$router.push("/login");
     },
   },

@@ -9,6 +9,9 @@ import {toRaw} from 'vue'
     </div>
     <h1>{{ userPost.user_name }}</h1> -->
   </section>
+  <div v-if="userPosts === []">
+    <h2>No posts yet</h2>
+  </div>
 </template>
 <script>
 import { toRaw } from "@vue/reactivity";

@@ -6,25 +6,14 @@
     @click="toggleModal"
   ></i>
   <div v-if="active" class="mod">
-    <form @submit.prevent="updatePieces(piece.id)">
-      <div>ARTIST NAME</div>
-      <input type="text" v-model="piece.artistName" />
-      <div>ART NAME</div>
-      <input type="text" v-model="piece.artName" />
-      <div>TITLE</div>
-      <input type="text" v-model="piece.imgURL" />
-      <div>PRICE</div>
-      <input type="text" v-model="piece.price" />
-      <div>CATEGORY</div>
-      <select type="text" v-model="piece.category">
-        <option value="Abstract">Abstract</option>
-        <option value="Painting">Painting</option>
-        <option value="Sculpture">Sculpture</option>
-        <option value="Drawing">Drawing</option>
-        <option value="Widlife">Widlife</option>
-      </select>
-      <div>DESCRIPTION</div>
-      <input type="text" v-model="piece.description" />
+    <form @submit.prevent="updatePost(post.post_id)">
+      <div>TITLE OF POST</div>
+      <input type="text" v-model="post.post_title" />
+      <div>POST CONTENT</div>
+      <input type="text" v-model="post.post_content" />
+      <div>IMAGE URL</div>
+      <input type="text" v-model="post.post_image" />
+
       <br />
       <button type="submit">Save</button>
       <button type="button" @click="toggleModal">Close</button>
@@ -33,9 +22,27 @@
 </template>
 <script>
 export default {
-  props: ["piece"],
+  computed: {
+    posts() {
+      return this.$store.state.posts;
+    },
+    users() {
+      return this.$store.state.users;
+    },
+    post() {
+      return this.$store.state.post;
+    },
+    user() {
+      return this.$store.state.user;
+    },
+  },
   data() {
     return {
+      user_id: "",
+      post_title: "",
+      post_content: "",
+      post_image: "",
+      date_of_post: "",
       active: false,
     };
   },
@@ -43,8 +50,17 @@ export default {
     toggleModal() {
       this.active = !this.active;
     },
-    updatePieces() {
-      this.$store.dispatch("updateProduct", this.piece);
+    console() {
+      console.log(this.user.user.user_id);
+    },
+    updatePost() {
+      this.$store.dispatch("updatePost", {
+        user_id: this.user.user.user_id,
+        post_title: this.post_title,
+        post_content: this.post_content,
+        post_image: this.post_image,
+        date_of_post: this.date_of_post,
+      });
     },
   },
 };

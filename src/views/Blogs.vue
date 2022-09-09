@@ -2,7 +2,7 @@
   <section id="market">
     <div id="box-container" v-if="posts">
       <div class="box row">
-        <div v-for="post in posts" :key="post.post_id" class="col-md-4">
+        <div v-for="post in posts" :key="post.post_id" class="col-md-3">
           <div class="item">
             <img class="art-image" :src="post.post_image" alt="" />
             <div id="text">
