@@ -1,20 +1,21 @@
 <template>
   <div id="item-wrapper" v-if="user">
     <div id="item-container" class="p-2">
+      <div id="info-div" style="display: flex; justify-content: space-around">
+        <router-link class="text-white" to="/">Back to Home</router-link>
+        <div v-if="user.user.type === 'admin'">
+          <router-link to="/Admin" class="my-1 text-white">
+            To Admin</router-link
+          >
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-3" id="img">
           <img id="artwork" :src="user.user.imgURL" alt="" />
         </div>
         <div class="col-md-9 words">
           <p class="text-white artist-name">{{ user.user.user_name }}</p>
-        </div>
-      </div>
-      <div id="info-div ">
-        <router-link class="text-white" to="/">Back to Home</router-link>
-        <div v-if="user.user.type === 'admin'">
-          <router-link to="/Admin" class="my-1 text-white">
-            To Admin</router-link
-          >
+          <i class="fa-solid fa-pen" id="edit"></i>
         </div>
       </div>
       <section id="Specials">
@@ -56,7 +57,7 @@
               aria-controls="v-pills-profile"
               aria-selected="false"
             >
-              Profile
+              Phone
             </button>
             <button
               class="nav-link"
@@ -68,7 +69,7 @@
               aria-controls="v-pills-messages"
               aria-selected="false"
             >
-              Messages
+              Email
             </button>
             <button
               class="nav-link"
@@ -80,7 +81,7 @@
               aria-controls="v-pills-settings"
               aria-selected="false"
             >
-              Settings
+              Delete account
             </button>
           </div>
           <div class="tab-content" id="v-pills-tabContent">
@@ -93,7 +94,6 @@
               <p id="image-description">
                 {{ user.user.bio }}
               </p>
-              <i class="fa-solid fa-pen"></i>
             </div>
             <div
               class="tab-pane fade"
@@ -101,7 +101,7 @@
               role="tabpanel"
               aria-labelledby="v-pills-profile-tab"
             >
-              <p id="image-description">{{ usersPost[0].user_name }}</p>
+              <p id="image-description">{{ user.user.phone_number }}</p>
             </div>
             <div
               class="tab-pane fade"
@@ -110,7 +110,7 @@
               aria-labelledby="v-pills-messages-tab"
             >
               <p id="image-description">
-                {{ user.user.bio }}
+                {{ user.user.email }}
               </p>
             </div>
             <div
@@ -119,9 +119,7 @@
               role="tabpanel"
               aria-labelledby="v-pills-settings-tab"
             >
-              <p id="image-description">
-                {{ user.user.bio }}
-              </p>
+              <button @click="deleteUser">Delete</button>
             </div>
           </div>
         </div>
@@ -146,15 +144,32 @@ export default {
     this.$store.dispatch("getSingleUser", this.$route.params.id);
     this.$store.dispatch("getUsersPost", this.$route.params.id);
   },
+
+  methods: {
+    deleteUser() {
+      this.$store.dispatch("deleteUser", this.$route.params.id);
+      this.$router.push("/login");
+    },
+  },
 };
 </script>
 
 <style scoped>
+/* #info-div {
+  display: flex;
+  justify-content: space-around;
+} */
+#edit {
+  font-size: 1.5rem;
+  padding-bottom: 0.2rem;
+  padding-left: 1rem;
+  color: cornflowerblue;
+}
 .words {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
 }
 #item-wrapper {
   min-height: 100vh;
@@ -169,9 +184,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: auto;
-  width: 100%;
-  min-height: 100vh;
+  min-height: 78vh;
   border: 1px solid #9967cc;
   border-radius: 10px;
 }
@@ -207,6 +220,12 @@ export default {
 
 .tab-content {
   min-width: 20rem;
+}
+
+.tab-content > .active {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 }
 
 .tab-pane {

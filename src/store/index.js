@@ -36,7 +36,8 @@ export default createStore({
         (state.token = ""),
         (state.users = ""),
         (state.post = ""),
-        (state.posts = "");
+        (state.posts = ""),
+        (state.usersPost = "");
     },
     noUsers(state) {
       state.users = "";
@@ -99,6 +100,12 @@ export default createStore({
         .then((data) => context.commit("setPosts", data))
         .catch((err) => console.log(err.message));
     },
+    getAllUsers: async (context) => {
+      fetch("https://uzair-capstone.herokuapp.com/users")
+        .then((res) => res.json())
+        .then((data) => context.commit("setUsers", data))
+        .catch((err) => console.log(err.message));
+    },
 
     getSinglePost: async (context, id) => {
       fetch("https://uzair-capstone.herokuapp.com/posts/" + id)
@@ -121,30 +128,22 @@ export default createStore({
         .catch((err) => console.log(err.message));
     },
 
-    createPost: async (context, payload) => {
-      const { post_title, post_content, post_image, date_of_post, user_id } =
-        payload;
-      fetch("https://uzair-capstone.herokuapp.com/posts", {
+    addPost: async (context, post) => {
+      fetch("https://uzair-capstone.herokuapp.com/posts/", {
         method: "POST",
-        body: JSON.stringify({
-          post_title: post_title,
-          post_content: post_content,
-          post_image: post_image,
-          date_of_post: date_of_post,
-          user_id: user_id,
-        }),
+        body: JSON.stringify(post),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
       })
         .then((response) => response.json())
-        .then(() => context.dispatch("getAllPosts"));
+        .then((json) => context.dispatch("getPosts", json));
     },
 
     updatePost: async (context, piece, id) => {
       const { post_title, post_content, post_image, date_of_post, user_id } =
         piece;
-      fetch("https://uzair-capstone.herokuapp.com/posts" + id, {
+      fetch("https://uzair-capstone.herokuapp.com/posts/" + id, {
         method: "PUT",
         body: JSON.stringify({
           post_title: post_title,
@@ -162,9 +161,15 @@ export default createStore({
     },
 
     deletePost: async (context, id) => {
-      fetch("https://uzair-capstone.herokuapp.com/posts" + id, {
+      fetch("https://uzair-capstone.herokuapp.com/posts/" + id, {
         method: "DELETE",
       }).then(() => context.dispatch("getAllPosts"));
+    },
+
+    deleteUser: async (context, id) => {
+      fetch("https://uzair-capstone.herokuapp.com/users/" + id, {
+        method: "DELETE",
+      }).then(() => context.commit("setUsers"));
     },
   },
   modules: {},

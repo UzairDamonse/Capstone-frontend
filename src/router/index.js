@@ -38,6 +38,11 @@ const routes = [
     component: () => import("../views/Admin.vue"),
   },
   {
+    path: "/UserPosts",
+    name: "UserPosts",
+    component: () => import("../views/UserPosts.vue"),
+  },
+  {
     path: "/Blogs/:id",
     name: "SingleBlog",
     component: () => import("../views/SingleBlog.vue"),

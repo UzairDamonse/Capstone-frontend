@@ -29,7 +29,7 @@
           src="https://i.postimg.cc/SsNFKCBq/Download-wallpaper-1920x1080-moon-night-stars-purple-full-hd-hdtv-fhd-1080p-hd-background.webp"
           alt="..."
         />
-        <div class="carousel-caption d-none d-md-block">
+        <div class="carousel-caption">
           <h5>First slide label</h5>
           <p>Some representative placeholder content for the first slide.</p>
         </div>
@@ -40,7 +40,7 @@
           src="https://i.postimg.cc/FRWtk1vS/Lv-7-CA.webp"
           alt="..."
         />
-        <div class="carousel-caption d-none d-md-block">
+        <div class="carousel-caption">
           <h5>Second slide label</h5>
           <p>Some representative placeholder content for the second slide.</p>
         </div>
@@ -51,7 +51,7 @@
           src="https://i.postimg.cc/6QhxwY1Y/Nebula-1920-x-1080.webp"
           alt="..."
         />
-        <div class="carousel-caption d-none d-md-block">
+        <div class="carousel-caption">
           <h5>Third slide label</h5>
           <p>Some representative placeholder content for the third slide.</p>
         </div>

@@ -46,6 +46,11 @@
             <router-link class="nav-link" to="/Blogs">Blogs</router-link>
           </li>
           <li class="nav-item" v-if="user">
+            <router-link class="nav-link" to="/UserPosts"
+              >Your Blogs</router-link
+            >
+          </li>
+          <li class="nav-item" v-if="user">
             <router-link class="nav-link" to="/Contact">Contact</router-link>
           </li>
           <li class="nav-item" v-if="!user">
